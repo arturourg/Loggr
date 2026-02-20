@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder, MessageFlags } from 'discord.js';
 import { follows } from '../database/db.js';
 import { createSuccessEmbed, createErrorEmbed } from '../utils/embeds.js';
 
@@ -19,7 +19,7 @@ export async function execute(interaction) {
   if (!wasFollowing) {
     return interaction.reply({
       embeds: [createErrorEmbed(`You were not following ${targetUser.username}.`)],
-      ephemeral: true
+      flags: MessageFlags.Ephemeral
     });
   }
 

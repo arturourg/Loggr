@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder, MessageFlags } from 'discord.js';
 import { users } from '../database/db.js';
 import { createSuccessEmbed, createErrorEmbed } from '../utils/embeds.js';
 
@@ -13,7 +13,7 @@ export async function execute(interaction) {
   if (!currentUsername) {
     return interaction.reply({
       embeds: [createErrorEmbed('Your account is not linked. Use `/connect` to link your Backloggd account.')],
-      ephemeral: true
+      flags: MessageFlags.Ephemeral
     });
   }
 

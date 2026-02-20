@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder, MessageFlags } from 'discord.js';
 import { users, follows } from '../database/db.js';
 import { createSuccessEmbed, createErrorEmbed } from '../utils/embeds.js';
 
@@ -17,7 +17,7 @@ export async function execute(interaction) {
   if (targetUser.id === followerId) {
     return interaction.reply({
       embeds: [createErrorEmbed('You cannot follow yourself.')],
-      ephemeral: true
+      flags: MessageFlags.Ephemeral
     });
   }
 
@@ -25,7 +25,7 @@ export async function execute(interaction) {
   if (!targetUsername) {
     return interaction.reply({
       embeds: [createErrorEmbed(`${targetUser.username} has not linked their Backloggd account.`)],
-      ephemeral: true
+      flags: MessageFlags.Ephemeral
     });
   }
 
@@ -33,7 +33,7 @@ export async function execute(interaction) {
   if (alreadyFollowing) {
     return interaction.reply({
       embeds: [createErrorEmbed(`You are already following ${targetUser.username}.`)],
-      ephemeral: true
+      flags: MessageFlags.Ephemeral
     });
   }
 

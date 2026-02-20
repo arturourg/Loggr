@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
 import { config } from '../config.js';
 
 let browser = null;
@@ -7,17 +7,27 @@ let isInitialized = false;
 const requestQueue = [];
 let isProcessing = false;
 
+const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || 
+  process.env.CHROME_PATH ||
+  '/usr/bin/chromium' ||
+  '/usr/bin/chromium-browser' ||
+  '/usr/bin/google-chrome' ||
+  '/usr/bin/google-chrome-stable';
+
 async function initBrowser() {
   if (isInitialized) return;
   
   browser = await puppeteer.launch({
-    headless: 'new',
+    executablePath,
+    headless: true,
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
       '--disable-dev-shm-usage',
       '--disable-gpu',
       '--disable-blink-features=AutomationControlled',
+      '--disable-software-rasterizer',
+      '--disable-extensions',
     ],
   });
 

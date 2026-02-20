@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder, MessageFlags } from 'discord.js';
 import { createBaseEmbed } from '../utils/embeds.js';
 
 export const data = new SlashCommandBuilder()
@@ -35,5 +35,5 @@ export async function execute(interaction) {
       value: '[Backloggd](https://www.backloggd.com) • [Bot Repository](https://github.com)',
     });
 
-  return interaction.reply({ embeds: [embed], ephemeral: true });
+  return interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
 }

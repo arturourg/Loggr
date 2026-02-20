@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, PermissionsBitField } from 'discord.js';
+import { SlashCommandBuilder, PermissionsBitField, MessageFlags } from 'discord.js';
 import { guilds } from '../database/db.js';
 import { createSuccessEmbed, createErrorEmbed } from '../utils/embeds.js';
 
@@ -14,7 +14,7 @@ export async function execute(interaction) {
   if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) {
     return interaction.reply({
       embeds: [createErrorEmbed('You need "Manage Server" permission to use this command.')],
-      ephemeral: true
+      flags: MessageFlags.Ephemeral
     });
   }
 
@@ -23,7 +23,7 @@ export async function execute(interaction) {
   if (!channel.isTextBased()) {
     return interaction.reply({
       embeds: [createErrorEmbed('Please select a text channel.')],
-      ephemeral: true
+      flags: MessageFlags.Ephemeral
     });
   }
 

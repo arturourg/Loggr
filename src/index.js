@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, Collection } from 'discord.js';
+import { Client, GatewayIntentBits, Collection, MessageFlags } from 'discord.js';
 import cron from 'node-cron';
 import { readdir } from 'fs/promises';
 import { join, dirname } from 'path';
@@ -61,7 +61,7 @@ client.on('interactionCreate', async interaction => {
     
     const errorMessage = {
       content: 'There was an error while executing this command!',
-      ephemeral: true
+      flags: MessageFlags.Ephemeral
     };
 
     if (interaction.replied || interaction.deferred) {

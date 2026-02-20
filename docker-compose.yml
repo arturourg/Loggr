@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  backloggdbot:
+    build: .
+    container_name: backloggdbot
+    restart: unless-stopped
+    volumes:
+      - backloggdbot-data:/app/data
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - DISCORD_CLIENT_ID=${DISCORD_CLIENT_ID}
+      - DATABASE_PATH=/app/data/backloggdbot.db
+      - SCRAPE_DELAY_MS=${SCRAPE_DELAY_MS:-3000}
+      - CACHE_TTL_MINUTES=${CACHE_TTL_MINUTES:-10}
+      - POLL_INTERVAL_MINUTES=${POLL_INTERVAL_MINUTES:-30}
+
+volumes:
+  backloggdbot-data:
